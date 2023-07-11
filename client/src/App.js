@@ -34,13 +34,12 @@ function App() {
 
       {games.length > 0? (
         games.map(game => {
-          console.log(game)
           return (
             <div key={game.id}>
               {game.cover !== undefined? (
                 <img src={`https://images.igdb.com/igdb/image/upload/t_cover_small/${game.cover.image_id}.jpg`} alt={game.name}/>
               ) : (
-                <img src='../public/blank.jpg' alt='blank img' />
+                <img href='../public/blank.jpg' alt='blank img' />
               )}
               <h3>{game.name}</h3>
               <p>{parseFloat(game.rating).toFixed(2)} | {game.rating_count}</p>
