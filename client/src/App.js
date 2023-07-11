@@ -2,29 +2,56 @@ import React, { useEffect, useState } from 'react'
 
 function App() {
 
-  const [gameData, setGameData] = useState([{}])
-  const [coverData, setCoverData] = useState([{}])
+  const [games, setGames] = useState([{}])
 
   useEffect(() => {
     fetch("/api/games")
       .then(response => response.json())
-      .then(data => {setGameData(data)})
+      .then(data => {setGames(data)})
     }, [])
 
-  useEffect(() => {
-    fetch("/api/covers")
-      .then(response => response.json())
-      .then(data => {setCoverData(data)})
-    }, [])
+    
+
+    // {
+    //   "id": 1,
+    //   "cover": {
+    //     "id": 291911,
+    //     "image_id": "co698n"
+    //   },
+    //   "genres": [
+    //     "Shooter",
+    //     "Simulator",
+    //     "Adventure"
+    //   ],
+    //   "name": "Thief II: The Metal Age",
+    //   "rating": 86.68295195538036,
+    //   "rating_count": 118
+    // }
 
   return (
+    <>
+      <h1>Games</h1>
 
-    <pre>
-      <h2>Games</h2>
-      {JSON.stringify(gameData, null, 2)}
-      <h2>Covers</h2>
-      {JSON.stringify(coverData, null, 2)}
-    </pre>
+      {games.length > 0? (
+        games.map(game => {
+          console.log(game)
+          return (
+            <div key={game.id}>
+              {game.cover !== undefined? (
+                <img src={`https://images.igdb.com/igdb/image/upload/t_cover_small/${game.cover.image_id}.jpg`} alt={game.name}/>
+              ) : (
+                <img src='../public/blank.jpg' alt='blank img' />
+              )}
+              <h3>{game.name}</h3>
+              <p>{parseFloat(game.rating).toFixed(2)} | {game.rating_count}</p>
+            </div>
+          )
+        })
+      ) : (
+        <p>Loading</p>
+      )}
+
+    </>
   )
 }
 
