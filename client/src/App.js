@@ -1,39 +1,19 @@
-import React, { useEffect, useState } from 'react'
+// import { useEffect, useState } from 'react'
+import { Route, Routes } from 'react-router-dom';
 
-function App() {
+import Home from './pages/Home';
+import GameInfo from './pages/GameInfo';
+import Navbar from './components/Navbar';
 
-  const [games, setGames] = useState([{}])
-
-  useEffect(() => {
-    fetch("/api/games/")
-      .then(response => response.json())
-      .then(data => {setGames(data)})
-    }, [])
-
-  const image_url = 'https://images.igdb.com/igdb/image/upload/t_cover_small/'
+export default function App() { 
 
   return (
     <>
-      <h1>Games</h1>
-
-      {games.length > 0? (
-        games.map(game => 
-          <div key={game.id}>
-            <h3>{game.name}</h3>
-            {game.cover !== undefined? (
-              <img src={`${image_url + game.cover.image_id}.jpg`} alt={game.name}/>
-            ) : (
-              <img href='../public/blank.png' alt='blank img' />
-            )}
-            <p>{parseFloat(game.rating).toFixed(2)} | {game.rating_count}</p>
-          </div>
-        )
-      ) : (
-        <p>Loading</p>
-      )}
-
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Home/>} />
+        <Route path='/game/:id' element={<GameInfo/>} />
+      </Routes>
     </>
   )
 }
-
-export default App
