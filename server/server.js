@@ -3,22 +3,18 @@ const express = require('express')
 const app = express()
 
   // GET ALL GAMES INFORMATION
-  app.get("/api/games", (req, res) => {
+  app.get("/api/games", async (req, res) => {
 
-    let gamesData = []
-    fetchApi(
+    const gamesData = await fetchApi(
       'games', 
       `
         fields name, cover.image_id, genres.name, release_dates.platform.name, rating, rating_count; 
         sort id asc; 
-        limit 1;
+        limit 100;
       `
     )
-    .then(response => {
-      gamesData.push(response[0])
-      res.send(gamesData)
-    })
-
+    
+    res.json(gamesData)
   })
 
   // GET ONE GAME'S INFO BASED ON ID
