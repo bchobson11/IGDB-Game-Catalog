@@ -1,48 +1,72 @@
 import { useEffect, useState } from 'react'
-import GameCard from '../components/GameCard'
-import { Link } from 'react-router-dom'
+import GamesContainer from '../components/GamesContainer'
+import PaginationButtons from '../components/PaginationButtons'
 
 // Route "/"
 export default function Home() {
 
-  const [games, setGames] = useState([{}])
+  const [games, setGames] = useState([])
   const [search, setSearch] = useState("")
+  const [offset, setOffset] = useState(0) // default offset
+  const [limit] = useState(100) // default number per page
+  
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    fetchGames()
+    setOffset(0)
+  }
+  
+  const handleNextPage = () => {
+    setOffset(prevOffset => prevOffset + limit);
+  };
+  
+  const handlePreviousPage = () => {
+    setOffset(prevOffset => prevOffset - limit);
+  };
+
+  const fetchGames = () => {
+    fetch(`/api/games/${offset}/${limit}?search=${search}`)
+      .then(response => response.json())
+      .then(data => {
+        setGames(data)
+      })
+  }
 
   useEffect(() => {
-    fetch("/api/games/")
-      .then(response => response.json())
-      .then(data => {setGames(data)})
-    }, [])
-
-  const handleChange = (e) => {
-    setSearch(e.target.value)
-  }
+    fetchGames()
+    // eslint-disable-next-line
+  }, [offset, limit])
 
   return (
     <>
       <h1>Games</h1>
 
-      <input 
-        placeholder='Search for Games'
-        value={search}
-        onChange={handleChange}
-      />
+      <form onSubmit={handleSubmit}>
+        <input 
+          placeholder='Search for Games'
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </form>
 
-      {games.length > 0? (
-        games.map(game => { 
-          let name = String(game.name).toLowerCase()
-          let regexp = new RegExp(search.toLowerCase())
-          if (regexp.test(name)) {
-            return (
-              <Link to={`game/${game.id}`}>
-                <GameCard {...game}/>
-              </Link>  
-            )
-          } 
-        })
-      ) : (
-        <p>No games found</p>
-      )}
+      <PaginationButtons
+          handlePrev={handlePreviousPage}
+          handleNext = {handleNextPage}
+          offset = {offset}
+          limit = {limit}
+          gamesLength = {games.Length}
+        />
+      
+      <GamesContainer games={games}/>
+
+        <PaginationButtons
+          handlePrev={handlePreviousPage}
+          handleNext = {handleNextPage}
+          offset = {offset}
+          limit = {limit}
+          gamesLength = {games.Length}
+        />
+
 
     </>
   )

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import GameCard from "../components/GameCard"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 // Route "/game/:id"
 export default function GameInfo() {
 
   const [game, setGame] = useState({})
+  const navigate = useNavigate();
 
   const { id } = useParams()
 
@@ -16,6 +17,10 @@ export default function GameInfo() {
     }, [])
 
   return (
-    <GameCard {...game}/>
+    <div>
+      <GameCard {...game}/>
+      <pre>{JSON.stringify(game, null, 2)}</pre>
+      <button onClick={() => navigate(-1)}> Back</button>
+    </div>
   )
 }
