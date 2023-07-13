@@ -18,7 +18,6 @@ export default function Home() {
       .then(data => {
         setGames(data)
       })
-      
   }
 
   const handleSubmit = (e) => {
@@ -54,7 +53,9 @@ export default function Home() {
       <button onClick={handlePreviousPage} disabled={offset === 0}>
         Previous Page
       </button>
-      <button onClick={handleNextPage} disabled={games.length === 0}>Next Page</button>
+      <button onClick={handleNextPage} disabled={games.length < limit}>
+        Next Page
+      </button>
       
       {games.length > 0? (
         games.map(game =>  
@@ -67,9 +68,12 @@ export default function Home() {
           )}
 
         <button onClick={handlePreviousPage} disabled={offset === 0}>
-          Previous Page
+            Previous Page
         </button>
-        <button onClick={handleNextPage} disabled={games.length === 0}>Next Page</button>
+
+        <button onClick={handleNextPage} disabled={games.length < limit}>
+          Next Page
+        </button>
 
 
     </>
