@@ -1,16 +1,28 @@
 import { useEffect, useState } from 'react'
-import GameCard from '../components/GameCard'
-import { Link } from 'react-router-dom'
+import GamesContainer from '../components/GamesContainer'
+import PaginationButtons from '../components/PaginationButtons'
 
 // Route "/"
 export default function Home() {
 
-  const [games, setGames] = useState([{}])
+  const [games, setGames] = useState([])
   const [search, setSearch] = useState("")
   const [offset, setOffset] = useState(0) // default offset
-  const [limit, setLimit] = useState(10) // default number per page
+  const [limit] = useState(100) // default number per page
   
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    fetchGames()
+    setOffset(0)
+  }
   
+  const handleNextPage = () => {
+    setOffset(prevOffset => prevOffset + limit);
+  };
+  
+  const handlePreviousPage = () => {
+    setOffset(prevOffset => prevOffset - limit);
+  };
 
   const fetchGames = () => {
     fetch(`/api/games/${offset}/${limit}?search=${search}`)
@@ -20,22 +32,9 @@ export default function Home() {
       })
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    fetchGames()
-    setOffset(0)
-  }
-
-  const handleNextPage = () => {
-    setOffset(prevOffset => prevOffset + limit);
-  };
-
-  const handlePreviousPage = () => {
-    setOffset(prevOffset => prevOffset - limit);
-  };
-
   useEffect(() => {
     fetchGames()
+    // eslint-disable-next-line
   }, [offset, limit])
 
   return (
@@ -50,30 +49,23 @@ export default function Home() {
         />
       </form>
 
-      <button onClick={handlePreviousPage} disabled={offset === 0}>
-        Previous Page
-      </button>
-      <button onClick={handleNextPage} disabled={games.length < limit}>
-        Next Page
-      </button>
+      <PaginationButtons
+          handlePrev={handlePreviousPage}
+          handleNext = {handleNextPage}
+          offset = {offset}
+          limit = {limit}
+          gamesLength = {games.Length}
+        />
       
-      {games.length > 0? (
-        games.map(game =>  
-          <Link to={`game/${game.id}`}>
-            <GameCard {...game}/>
-          </Link>  
-        )
-        ) : (
-          <p>No games found</p>
-          )}
+      <GamesContainer games={games}/>
 
-        <button onClick={handlePreviousPage} disabled={offset === 0}>
-            Previous Page
-        </button>
-
-        <button onClick={handleNextPage} disabled={games.length < limit}>
-          Next Page
-        </button>
+        <PaginationButtons
+          handlePrev={handlePreviousPage}
+          handleNext = {handleNextPage}
+          offset = {offset}
+          limit = {limit}
+          gamesLength = {games.Length}
+        />
 
 
     </>
