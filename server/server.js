@@ -2,17 +2,16 @@ const fetchApi = require('./helper')
 const express = require('express')
 const app = express()
 
-  // 238,434 total games
-
   // GET ALL GAMES INFORMATION
-  app.get("/api/games", async (req, res) => {
-    
+  app.get("/api/games/:offset/:limit", async (req, res) => {
+    const {offset, limit} = req.params
     const gamesData = await fetchApi(
       'games', 
       `
         fields name, cover.image_id, genres.name, release_dates.platform.name, rating, rating_count; 
-        offset 0;
-        limit 100;
+        offset ${offset};
+        limit ${limit};
+        sort id asc;
       `
     )
   
