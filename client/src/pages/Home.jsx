@@ -8,20 +8,23 @@ export default function Home() {
   const [games, setGames] = useState([{}])
   const [search, setSearch] = useState("")
   const [offset, setOffset] = useState(0) // default offset
-  const [limit, setLimit] = useState(100) // default number per page
+  const [limit, setLimit] = useState(10) // default number per page
   
   
 
-  const fetchGames = (url) => {
-    fetch(url)
+  const fetchGames = () => {
+    fetch(`/api/games/${offset}/${limit}?search=${search}`)
       .then(response => response.json())
-      .then(data => {setGames(data)})
+      .then(data => {
+        setGames(data)
+      })
+      
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('submitted')
-    fetchGames(`/api/games/${search}`)
+    fetchGames()
+    setOffset(0)
   }
 
   const handleNextPage = () => {
@@ -33,7 +36,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    fetchGames(`/api/games/${offset}/${limit}`)
+    fetchGames()
   }, [offset, limit])
 
   return (
@@ -51,7 +54,7 @@ export default function Home() {
       <button onClick={handlePreviousPage} disabled={offset === 0}>
         Previous Page
       </button>
-      <button onClick={handleNextPage}>Next Page</button>
+      <button onClick={handleNextPage} disabled={games.length === 0}>Next Page</button>
       
       {games.length > 0? (
         games.map(game =>  
@@ -66,7 +69,7 @@ export default function Home() {
         <button onClick={handlePreviousPage} disabled={offset === 0}>
           Previous Page
         </button>
-        <button onClick={handleNextPage}>Next Page</button>
+        <button onClick={handleNextPage} disabled={games.length === 0}>Next Page</button>
 
 
     </>

@@ -5,13 +5,22 @@ const app = express()
   // GET ALL GAMES INFORMATION
   app.get("/api/games/:offset/:limit", async (req, res) => {
     const {offset, limit} = req.params
+    const search = req.query.search
+    // const searchQuery1 = (search !== "" ? `search "${search}";` : "")
+    let searchQuery = ""
+    if (search === "" || search === undefined) {
+      searchQuery = ""
+    } else {
+      searchQuery = `search "${search}";`
+    }
+
     const gamesData = await fetchApi(
       'games', 
       `
         fields name, cover.image_id, genres.name, release_dates.platform.name, rating, rating_count; 
         offset ${offset};
         limit ${limit};
-        sort id asc;
+        ${searchQuery}
       `
     )
   
@@ -19,19 +28,20 @@ const app = express()
   })
 
   // Get games based on search
-  app.get("/api/games/:search", async (req, res) => {
-    const {search} = req.params
-    const gamesData = await fetchApi(
-      'games', 
-      `
-        fields name, cover.image_id, genres.name, release_dates.platform.name, rating, rating_count; 
-        limit 300;
-        search "${search}";
-      `
-    )
+  // app.get("/api/games/:search", async (req, res) => {
+  //   const {search} = req.params
+  //   const gamesData = await fetchApi(
+  //     'games', 
+  //     `
+  //       fields name, cover.image_id, genres.name, release_dates.platform.name, rating, rating_count; 
+  //       offset ;
+  //       limit 2;
+  //       search "${search}";
+  //     `
+  //   )
     
-    res.json(gamesData)
-  })
+  //   res.json(gamesData)
+  // })
 
   // GET ONE GAME'S INFO BASED ON ID
   app.get("/api/game/:id", async (req, res) => {
