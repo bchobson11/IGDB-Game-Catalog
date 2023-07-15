@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
 import GamesContainer from '../components/GamesContainer'
-import PaginationButtons from '../components/PaginationButtons'
 import styles from './Home.module.css'
+import RightIcon from '@mui/icons-material/ArrowCircleRightRounded';
+import LeftIcon from '@mui/icons-material/ArrowCircleLeftRounded';
+import FilterIcon from '@mui/icons-material/FilterAltOutlined';
+
 
 // Route "/"
 export default function Home() {
@@ -50,23 +53,20 @@ export default function Home() {
         />
       </form>
 
-      <PaginationButtons
-          handlePrev={handlePreviousPage}
-          handleNext = {handleNextPage}
-          offset = {offset}
-          limit = {limit}
-          gamesLength = {games.Length}
-        />
-      
-      <GamesContainer games={games}/>
+      <FilterIcon />
 
-        <PaginationButtons
-          handlePrev={handlePreviousPage}
-          handleNext = {handleNextPage}
-          offset = {offset}
-          limit = {limit}
-          gamesLength = {games.Length}
-        />
+      
+        <div className={styles.prevCont} onClick={handlePreviousPage} disabled={offset === 0}>
+            <p className={styles.prevText}>Prev</p>
+            <LeftIcon sx={{ fontSize: 50}}className={styles.prevIcon}/>
+        </div>
+
+        <div className={styles.nextCont} onClick={handleNextPage} disabled={games.length < limit}>
+          <RightIcon sx={{ fontSize: 50 }} className={styles.nextIcon}/>
+          <p className={styles.nextText}>Next</p>
+        </div>
+
+        <GamesContainer games={games}/>
 
 
     </div>

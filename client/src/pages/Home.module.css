@@ -29,3 +29,103 @@
   color: black;
   background: gray;
 }
+
+.prevCont {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  left: 40px;
+  top: 50%;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: black;
+  overflow: hidden;
+  transition: .5s ease-in-out;
+}
+
+.prevIcon {
+  color: gray;
+  transition: .5s ease-in-out
+}
+
+.prevText {
+  font-size: 20px;
+  color: gray;
+  opacity: 0;
+  transition: .5s ease-in-out;
+}
+
+.prevCont:hover {
+  cursor: pointer;
+  width: 100px;
+  border-radius: 20%/50%;
+  left: 20px;
+}
+
+.prevCont:hover .prevText {
+  opacity: 1;
+}
+
+.prevCont:hover .prevIcon {
+  animation-name: rotate-center;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-direction: reverse;
+}
+
+.nextCont {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  right: 40px;
+  top: 50%;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: black;
+  overflow: hidden;
+  transition: .5s ease-in-out;
+}
+
+.nextIcon {
+  color: gray;
+  transition: .5s ease-in-out;
+}
+
+.nextText {
+  font-size: 20px;
+  color: gray;
+  opacity: 0;
+  transition: .5s ease-in-out;
+}
+
+.nextCont:hover {
+  cursor: pointer;
+  width: 100px;
+  border-radius: 20%/50%;
+  right: 20px;
+}
+
+.nextCont:hover .nextText {
+  opacity: 1;
+}
+
+.nextCont:hover .nextIcon {
+  animation-name: rotate-center;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
