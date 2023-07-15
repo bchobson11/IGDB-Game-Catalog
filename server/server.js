@@ -8,10 +8,23 @@ const app = express()
     const search = req.query.search
     const searchQuery = (search === "" || search === undefined) ? "" : `search "${search}";`
     
+
+    /*
+
+      * can have multiple where statements *
+
+      search by platform
+      where platforms.platform_family.name = "Xbox";
+
+      where platforms.category = (1,2,3,4,5,6); 
+      1: console, 2: arcade, 3: platform, 4: operating system, 5: portable-console, 6: computer
+
+
+    */
     const gamesData = await fetchApi(
       'games', 
       `
-        fields name, cover.image_id, genres.name, release_dates.platform.name, rating, rating_count; 
+        fields name, cover.image_id, genres.name, platforms.name, platforms.platform_logo.image_id, rating, rating_count; 
         offset ${offset};
         limit ${limit};
         ${searchQuery}
