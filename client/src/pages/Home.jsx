@@ -9,7 +9,7 @@ export default function Home() {
   const [games, setGames] = useState([])
   const [search, setSearch] = useState("")
   const [offset, setOffset] = useState(0) // default offset
-  const [limit] = useState(100) // default number per page
+  const [limit] = useState(40) // default number per page
   
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -40,7 +40,6 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.header}>Games</h1>
 
       <form className={styles.form} onSubmit={handleSubmit}>
         <input 

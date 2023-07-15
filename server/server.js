@@ -27,6 +27,7 @@ const app = express()
         fields name, cover.image_id, genres.name, platforms.name, platforms.platform_logo.image_id, rating, rating_count; 
         offset ${offset};
         limit ${limit};
+        where platforms.category = (6); 
         ${searchQuery}
       `
     )
