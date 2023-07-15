@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import GamesContainer from '../components/GamesContainer'
 import PaginationButtons from '../components/PaginationButtons'
+import styles from './Home.module.css'
 
 // Route "/"
 export default function Home() {
@@ -8,7 +9,7 @@ export default function Home() {
   const [games, setGames] = useState([])
   const [search, setSearch] = useState("")
   const [offset, setOffset] = useState(0) // default offset
-  const [limit] = useState(100) // default number per page
+  const [limit] = useState(40) // default number per page
   
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -38,11 +39,11 @@ export default function Home() {
   }, [offset, limit])
 
   return (
-    <>
-      <h1>Games</h1>
+    <div className={styles.container}>
 
-      <form onSubmit={handleSubmit}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <input 
+          className={styles.input}
           placeholder='Search for Games'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -68,6 +69,6 @@ export default function Home() {
         />
 
 
-    </>
+    </div>
   )
 }
