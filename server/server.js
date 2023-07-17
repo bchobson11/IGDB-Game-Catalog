@@ -41,7 +41,7 @@ const app = express()
     const gameData = await fetchApi(
       'games', 
       `
-        fields name, cover.image_id, similar_games.name, summary, storyline, genres.name, artworks.image_id, screenshots.image_id, videos.name, videos.video_id, platforms.name, rating, rating_count;  
+        fields name, game_localizations.region.name, themes.name, game_engines.name, involved_companies.company.name, involved_companies.*, involved_companies.publisher, cover.image_id, similar_games.name, similar_games.cover.image_id, summary, storyline, genres.name, artworks.image_id, screenshots.image_id, videos.name, videos.video_id, platforms.name, rating, rating_count;  
         where id = ${req.params.id};
       `
     )

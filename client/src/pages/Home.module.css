@@ -1,16 +1,18 @@
-.container {
-  
-}
-
-.form {
-  display: block;
-  width: 71%;
-  margin: 20px auto;
+.top {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  padding: 1.5rem 1.75rem;
+  margin-bottom: 20px;
+}
+.form {
+  border: solid 3px black;
+  display: block;
+  width: 71%;
+  margin: 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.15rem 1.75rem;
   border-radius: 3rem;
   background: gray;
   -webkit-box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
@@ -24,10 +26,51 @@
   font-family: var(--font-raleway);
   font-weight: 500;
   padding-right: 1rem;
-
   outline: none;
   color: black;
   background: gray;
+}
+
+.filterCont {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: black;
+  overflow: hidden;
+  transition: .3s ease-in-out;
+}
+
+.filterIcon {
+  color: gray;
+  transition: .3s ease-in-out
+}
+
+.filterText {
+  font-size: 20px;
+  color: gray;
+  opacity: 0;
+  transition: .3s ease-in-out;
+}
+
+.filterCont:hover {
+  cursor: pointer;
+  width: 100px;
+  border-radius: 20%/50%;
+  left: 20px;
+}
+
+.filterCont:hover .filterText {
+  opacity: 1;
+}
+
+.filterCont:hover .filterIcon {
+  animation-name: rotate-center;
+  animation-duration: .5s;
+  animation-timing-function: ease-in-out;
+  animation-direction: reverse;
 }
 
 .prevCont {
@@ -42,19 +85,19 @@
   border-radius: 100%;
   background-color: black;
   overflow: hidden;
-  transition: .5s ease-in-out;
+  transition: .3s ease-in-out;
 }
 
 .prevIcon {
   color: gray;
-  transition: .5s ease-in-out
+  transition: .3s ease-in-out
 }
 
 .prevText {
   font-size: 20px;
   color: gray;
   opacity: 0;
-  transition: .5s ease-in-out;
+  transition: .3s ease-in-out;
 }
 
 .prevCont:hover {
@@ -70,7 +113,7 @@
 
 .prevCont:hover .prevIcon {
   animation-name: rotate-center;
-  animation-duration: 1s;
+  animation-duration: .5s;
   animation-timing-function: ease-in-out;
   animation-direction: reverse;
 }
@@ -87,19 +130,19 @@
   border-radius: 100%;
   background-color: black;
   overflow: hidden;
-  transition: .5s ease-in-out;
+  transition: .3s ease-in-out;
 }
 
 .nextIcon {
   color: gray;
-  transition: .5s ease-in-out;
+  transition: .3s ease-in-out;
 }
 
 .nextText {
   font-size: 20px;
   color: gray;
   opacity: 0;
-  transition: .5s ease-in-out;
+  transition: .3s ease-in-out;
 }
 
 .nextCont:hover {
@@ -115,7 +158,7 @@
 
 .nextCont:hover .nextIcon {
   animation-name: rotate-center;
-  animation-duration: 1s;
+  animation-duration: .5s;
   animation-timing-function: ease-in-out;
 }
 

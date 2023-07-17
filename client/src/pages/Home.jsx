@@ -3,7 +3,8 @@ import GamesContainer from '../components/GamesContainer'
 import styles from './Home.module.css'
 import RightIcon from '@mui/icons-material/ArrowCircleRightRounded';
 import LeftIcon from '@mui/icons-material/ArrowCircleLeftRounded';
-import FilterIcon from '@mui/icons-material/FilterAltOutlined';
+import FilterIcon from '@mui/icons-material/AddCircleOutlined';
+import SettingsIcon from '@mui/icons-material/SettingsSuggestRounded';
 
 
 // Route "/"
@@ -44,16 +45,23 @@ export default function Home() {
   return (
     <div className={styles.container}>
 
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <input 
-          className={styles.input}
-          placeholder='Search for Games'
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </form>
+      <div className={styles.top}>
 
-      <FilterIcon />
+        <div className={styles.filterCont}>
+            <p className={styles.filterText}>Filter</p>
+            <FilterIcon sx={{ fontSize: 50}}className={styles.filterIcon}/>
+        </div>
+
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <input 
+            className={styles.input}
+            placeholder='Search for Games'
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </form>
+      </div>
+
 
       
         <div className={styles.prevCont} onClick={handlePreviousPage} disabled={offset === 0}>

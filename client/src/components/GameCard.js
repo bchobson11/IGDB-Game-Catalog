@@ -10,7 +10,7 @@ export default function GameCard(game) {
 
 
   return (
-    <Link style={{textDecoration: 'none'}} to={`game/${game.id}`}>
+    <Link style={{textDecoration: 'none'}} to={`/game/${game.id}`}>
       <div className={styles.card}>
         <div className={styles.imageContainer}>
           <img 
