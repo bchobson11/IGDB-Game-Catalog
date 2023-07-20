@@ -1,0 +1,15 @@
+.container {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  align-self: flex-end;
+}
+
+a {
+  display: contents;
+}
+
+.logo {
+  width: 5%;
+  margin: 0px 30px;;
+}

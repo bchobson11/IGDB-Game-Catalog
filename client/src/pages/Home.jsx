@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import GamesContainer from '../components/GamesContainer'
+import Modal from '../components/Modal'
 import styles from './Home.module.css'
 import RightIcon from '@mui/icons-material/ArrowCircleRightRounded';
 import LeftIcon from '@mui/icons-material/ArrowCircleLeftRounded';
@@ -14,19 +15,25 @@ export default function Home() {
   const [search, setSearch] = useState("")
   const [offset, setOffset] = useState(0) // default offset
   const [limit] = useState(40) // default number per page
+  const [showModal, setShowModal] = useState(false)
   
   const handleSubmit = (e) => {
     e.preventDefault()
     fetchGames()
     setOffset(0)
   }
-  
+ 
   const handleNextPage = () => {
-    setOffset(prevOffset => prevOffset + limit);
+    if (games.length === limit) {
+      setOffset(prevOffset => prevOffset + limit);
+    } else return;
   };
   
+  
   const handlePreviousPage = () => {
-    setOffset(prevOffset => prevOffset - limit);
+    if (offset !== 0) {
+      setOffset(prevOffset => prevOffset - limit);
+    } else return;
   };
 
   const fetchGames = () => {
@@ -37,6 +44,10 @@ export default function Home() {
       })
   }
 
+  function handleShowModal() {
+    setShowModal(prev => !prev)
+  }
+
   useEffect(() => {
     fetchGames()
     // eslint-disable-next-line
@@ -44,10 +55,11 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
+      <Modal onClose={handleShowModal} show={showModal}/>
 
       <div className={styles.top}>
 
-        <div className={styles.filterCont}>
+        <div className={styles.filterCont} onClick={e => handleShowModal()}>
             <p className={styles.filterText}>Filter</p>
             <FilterIcon sx={{ fontSize: 50}}className={styles.filterIcon}/>
         </div>
@@ -62,14 +74,12 @@ export default function Home() {
         </form>
       </div>
 
-
-      
-        <div className={styles.prevCont} onClick={handlePreviousPage} disabled={offset === 0}>
+        <div className={`${styles.prevCont} ${offset === 0 && styles.disabled}`} onClick={handlePreviousPage}>
             <p className={styles.prevText}>Prev</p>
-            <LeftIcon sx={{ fontSize: 50}}className={styles.prevIcon}/>
+            <LeftIcon sx={{ fontSize: 50}} className={styles.prevIcon}/>
         </div>
 
-        <div className={styles.nextCont} onClick={handleNextPage} disabled={games.length < limit}>
+        <div className={`${styles.nextCont} ${games.length < limit && styles.disabled}`} onClick={handleNextPage}>
           <RightIcon sx={{ fontSize: 50 }} className={styles.nextIcon}/>
           <p className={styles.nextText}>Next</p>
         </div>

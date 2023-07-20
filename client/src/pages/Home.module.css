@@ -162,6 +162,12 @@
   animation-timing-function: ease-in-out;
 }
 
+.disabled {
+  opacity: 0;
+  pointer-events: none;
+  transition: all 2s ease-in-out;
+}
+
 @keyframes rotate-center {
   0% {
     -webkit-transform: rotate(0);
