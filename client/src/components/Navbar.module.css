@@ -1,0 +1,11 @@
+.title {
+  text-align: center;
+  padding: 20px;
+}
+
+.text {
+  font-size: 5rem;
+  letter-spacing: 2px;
+  color: gray;
+  text-shadow: black 5px 0 10px;
+}
