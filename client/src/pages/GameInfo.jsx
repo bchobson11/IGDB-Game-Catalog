@@ -4,6 +4,8 @@ import GameCard from "../components/GameCard"
 import Websites from "../components/Websites"
 import styles from './GameInfo.module.css'
 import LeftIcon from '@mui/icons-material/ArrowCircleLeftRounded';
+import AwesomeSlider from 'react-awesome-slider';
+import 'react-awesome-slider/dist/styles.css'
 
 // Route "/game/:id"
 export default function GameInfo() {
@@ -91,46 +93,67 @@ export default function GameInfo() {
         </div>   
           <Websites webs = {game.websites} />
       </div>
+
+      <h2 className={styles.sections}>Summary</h2>
+
+      <p className={styles.text}>{game.summary}</p>
         
+      {game.screenshots && (
+        <>
+          <h2 className={styles.sections}>Images</h2>
 
-      <h2>Summary</h2>
+          <AwesomeSlider className={styles.slider} >
+            {game.screenshots.map(art =>
+              <div>
+                <img 
+                  className={styles.sliderImg}
+                  key={art.id}
+                  src={`${image_url + art.image_id}.jpg`}
+                  alt='gameplay'
+                />
+              </div>
+            )}
+          </AwesomeSlider>
+        </>
+      )}
 
-      <p>{game.summary}</p>
-        
-      <h2>Media</h2>
 
-      <div className={styles.artContainer}> 
-        {game.screenshots && game.screenshots.map(art =>
-          <img 
-          key={art.id}
-          src={`${image_url + art.image_id}.jpg`}
-          alt='gameplay'
-          />
-          )}
-        {game.videos && game.videos.map(vid => 
-          <iframe
-          title={vid.name}
-          src={`${video_url + vid.video_id}`} 
-          >
-          </iframe>
-        )}
-      </div>
 
+      
       {game.storyline &&  ( 
         <>
-          <h2>Storyline</h2>
-          <p>{game.storyline}</p>
+          <h2 className={styles.sections}>Storyline</h2>
+          <p className={styles.text}>{game.storyline}</p>
         </>
       )}     
 
-      <h2>Similar Games</h2>
+      {game.videos && (
+        <>
+        <h2 className={styles.sections}>Videos</h2>
+
+          <AwesomeSlider className={styles.slider} infinite={false} >
+            {game.videos.map(vid =>
+              <div>
+                <iframe 
+                  className={styles.frame}
+                  title={vid.name}
+                  src={`${video_url + vid.video_id}?rel=0`} 
+                  allow="fullscreen"
+                >
+                </iframe>
+              </div>
+            )}
+          </AwesomeSlider>
+        </>
+      )}
+
+      <h2 className={styles.sections}>Similar Games</h2>
 
       <div className={styles.similarGamesContainer}>
         {game.similar_games && game.similar_games.map(game =>
           <GameCard key={game.id} {...game}/>
         )}
       </div>
-
 
       {/* <pre>{JSON.stringify(game, null, 2)}</pre> */}
     </div>

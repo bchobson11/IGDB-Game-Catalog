@@ -142,7 +142,7 @@
   font-size: 20px;
   color: gray;
   opacity: 0;
-  transition: .3s ease-in-out;
+  transition: all .3s ease-in-out;
 }
 
 .nextCont:hover {
