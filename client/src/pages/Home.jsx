@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react'
 import GamesContainer from '../components/GamesContainer'
-import Modal from '../components/Modal'
 import styles from './Home.module.css'
 import RightIcon from '@mui/icons-material/ArrowCircleRightRounded';
 import LeftIcon from '@mui/icons-material/ArrowCircleLeftRounded';
-import FilterIcon from '@mui/icons-material/AddCircleOutlined';
-import SettingsIcon from '@mui/icons-material/SettingsSuggestRounded';
 
 
 // Route "/"
@@ -15,7 +12,6 @@ export default function Home() {
   const [search, setSearch] = useState("")
   const [offset, setOffset] = useState(0) // default offset
   const [limit] = useState(40) // default number per page
-  const [showModal, setShowModal] = useState(false)
   
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -44,10 +40,6 @@ export default function Home() {
       })
   }
 
-  function handleShowModal() {
-    setShowModal(prev => !prev)
-  }
-
   useEffect(() => {
     fetchGames()
     // eslint-disable-next-line
@@ -55,14 +47,8 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <Modal onClose={handleShowModal} show={showModal}/>
 
       <div className={styles.top}>
-
-        <div className={styles.filterCont} onClick={e => handleShowModal()}>
-            <p className={styles.filterText}>Filter</p>
-            <FilterIcon sx={{ fontSize: 50}}className={styles.filterIcon}/>
-        </div>
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <input 

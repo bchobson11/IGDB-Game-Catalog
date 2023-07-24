@@ -7,7 +7,7 @@
 .form {
   border: solid 3px black;
   display: block;
-  width: 71%;
+  width: 70%;
   margin: 0px 20px;
   display: flex;
   align-items: center;
@@ -17,6 +17,7 @@
   background: gray;
   -webkit-box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
   box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
+  max-width: 1000px;
 }
 
 .input {
