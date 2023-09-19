@@ -25,7 +25,6 @@ export default function Home() {
     } else return;
   };
   
-  
   const handlePreviousPage = () => {
     if (offset !== 0) {
       setOffset(prevOffset => prevOffset - limit);
@@ -34,14 +33,16 @@ export default function Home() {
 
   const fetchGames = () => {
     fetch(`/api/games/${offset}/${limit}?search=${search}`)
-      .then(response => response.json())
-      .then(data => {
-        setGames(data)
-      })
+    .then(response => response.json())
+    .then(data => {
+      setGames(data)
+    })
   }
-
+  
   useEffect(() => {
     fetchGames()
+    const scroller = document.querySelector("#body");
+    scroller.scrollTo({top: 0, behavior: 'instant'})
     // eslint-disable-next-line
   }, [offset, limit])
 
@@ -71,7 +72,6 @@ export default function Home() {
         </div>
 
         <GamesContainer games={games}/>
-
 
     </div>
   )
