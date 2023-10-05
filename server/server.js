@@ -20,13 +20,13 @@ const requestOptions = {
     const search = req.query.search
 
     const response = await apicalypse(requestOptions)
-      .fields(['name','cover.image_id', 'genres.name', 'platforms.name', 'platforms.platform_logo.image_id', 'rating', 'rating_count'])
-      .limit(limit)
-      .offset(offset)
-      .search(search)
-      .where('platforms.category = (1)')
-      .request('/games')
-      
+    .fields(['name','cover.image_id', 'genres.name', 'platforms.name', 'platforms.platform_logo.image_id', 'rating', 'rating_count'])
+    .limit(limit)
+    .offset(offset)
+    .search(search)
+    .where('platforms.category = (1)')
+    .request('/games')
+    
       res.json(response.data)
   })
 
