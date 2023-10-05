@@ -16,6 +16,8 @@ export default function GameInfo() {
   const { id } = useParams()
 
   useEffect(() => {
+    const scroller = document.querySelector("#body");
+    scroller.scrollTo({top: 150, behavior: 'instant'})
     fetch(`/api/game/${id}`)
       .then(response => response.json())
       .then(data => {setGame(data)})
@@ -155,7 +157,6 @@ export default function GameInfo() {
         )}
       </div>
 
-      {/* <pre>{JSON.stringify(game, null, 2)}</pre> */}
     </div>
   )
 }
